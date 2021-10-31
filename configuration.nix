@@ -87,24 +87,39 @@
 
   #  with pkgs;
   #  let  
-  #  r-with-my-pkgs = pkgs.rWrapper.override{ packages = with rPackages; [ tidyverse lavaan ]; };
-  # in ...
-
-   environment.systemPackages = with pkgs; [
+  #    r-with-my-pkgs = rWrapper.override{ packages = with rPackages; [ tidyverse lavaan ]; };
+  #  in
+  
+   environment.systemPackages = with pkgs; 
+     let
+       r-with-my-pkgs = rWrapper.override{
+            packages = with rPackages;
+             [lavaan tidyverse];
+        };
+    in
+ [
      vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
      wget
      git
      emacs
-     zotero
+     jabref
      texlive.combined.scheme-basic
      vivaldi
      vivaldi-widevine
      vivaldi-ffmpeg-codecs
      python39Full
      libreoffice
-     pandoc    
+     pandoc
+     openjdk
+     neovim
+     r-with-my-pkgs
+     gimp
+     obs-studio
+     teams
+     audacity
+     
    ];
-
+ 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
